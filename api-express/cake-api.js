@@ -12,11 +12,12 @@ let rawdata = fs.readFileSync('baseCakes.json');
 let cakes = JSON.parse(rawdata);
 console.log(cakes);
 
-app.get('/', (req, res) => {
+app.get('/cakes/', (req, res) => {
     res.send(cakes);
 });
-app.get('/cake/:id', (req, res) => {
-    res.send(cakes [req.params.id]);
-});
+
+app.get('/cakes/:search', (req, res) => { res.send(cakes.filter((c) => c.name.toLocaleLowerCase().includes(req.params.search.toLocaleLowerCase()))); });
+
+app.get('/cake/:id', (req, res) => { res.send(cakes.filter((c) => c.id === req.params.id)); });
 
 app.listen(port, () => console.log(`Hello world app listening on port ${port}!`));
